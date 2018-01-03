@@ -9,21 +9,27 @@ class App extends React.Component {
     super(props);
     this.state = { 
       repos: []
-    }
+    };
 
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+
+    $.post('http://localhost:1128/repos', JSON.stringify(term), function(data) {
+      console.log(data);
+      alert('success');
+    });
   }
 
   render () {
-    return (<div>
-      <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
-    </div>)
+    return (
+      <div>
+        <h1>Github Fetcher</h1>
+        <RepoList repos={this.state.repos}/>
+        <Search onSearch={this.search.bind(this)}/>
+      </div>
+    );
   }
 }
 
