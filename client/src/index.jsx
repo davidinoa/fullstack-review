@@ -17,7 +17,6 @@ class App extends React.Component {
   }
 
   fetchRepos() {
-    console.log('Line 20 running');
     fetch('http://localhost:1128/repos')
       .then(res => res.json())
       .then(result => {
