@@ -8,42 +8,36 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: [],
-      isLoaded: false
+      repos: []
     };
   }
 
   componentDidMount() {
+    this.fetchRepos();
+  }
+
+  fetchRepos() {
+    console.log('Line 20 running');
     fetch('http://localhost:1128/repos')
       .then(res => res.json())
       .then(result => {
-        this.setState({
-          isLoaded: true,
-          repos: result
-        });
-      }, error => {
-        this.setState({
-          isLoaded: 'Error while loading',
-        });
-        console.log(error);
+        this.setState({ repos: result });
       });
   }
 
   search (term) {
-    console.log(`${term} was searched`);
-
-    $.post('http://localhost:1128/repos', {term: term}, function(data) {
-      console.log(data);
-      alert('success');
-    });
+    $.post('http://localhost:1128/repos', { term: term })
+      .done(() => {
+        this.fetchRepos();
+      });
   }
 
   render () {
     return (
       <div>
         <h1>Github Fetcher</h1>
-        <RepoList repos={this.state.repos}/>
         <Search onSearch={this.search.bind(this)}/>
+        <RepoList repos={this.state.repos}/>
       </div>
     );
   }
