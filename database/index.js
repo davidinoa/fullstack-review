@@ -22,10 +22,21 @@ let repoSchema = mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+let save = (repos) => {
+  repos.forEach(repo => {
+    new Repo({
+      id: repo.id,
+      name: repo.name,
+      owner: repo.owner.login,
+      url: repo.html_url,
+      description: repo.description,
+      stars: repo.stargazers_count
+    })
+      .save(function(err) {
+        if (err) { console.log('Error while creating document'); }
+        console.log('Document created');
+      });
+  });
 };
 
 module.exports.save = save;
