@@ -12,10 +12,9 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.post('/repos', function (req, res) {
   getReposByUsername(req.body.term, function(error, repos) {
     if (error) { throw error; }
-    saveToMongo(JSON.parse(repos));
+    saveToMongo(JSON.parse(repos))
+      .then(() => res.status(201).send('Server received POST request'));
   });
-
-  res.status(201).send('Server received POST request');
 });
 
 app.get('/repos', function (req, res) {
