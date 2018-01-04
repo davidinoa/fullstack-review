@@ -39,4 +39,14 @@ let save = (repos) => {
   });
 };
 
+let retrieveTop25Repos = (callback) => {
+  return Repo.find().sort({stars: -1}).limit(25)
+    .exec((err, repos) => {
+      if (err) { throw err; }
+      callback(repos);
+      console.log('Top 25 repos retrieved');
+    });
+};
+
 module.exports.save = save;
+module.exports.retrieveTop25Repos = retrieveTop25Repos;

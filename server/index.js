@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const saveToMongo = require('../database/index').save;
+const retrieveTop25Repos = require('../database/index').retrieveTop25Repos;
 const getReposByUsername = require('../helpers/github').getReposByUsername;
 let app = express();
 
@@ -18,8 +19,7 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  retrieveTop25Repos(repos => res.json(repos));
 });
 
 let port = 1128;
