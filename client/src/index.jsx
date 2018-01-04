@@ -16,7 +16,7 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
 
-    $.post('http://localhost:1128/repos', JSON.stringify(term), function(data) {
+    $.post('http://localhost:1128/repos', {term: term}, function(data) {
       console.log(data);
       alert('success');
     });
