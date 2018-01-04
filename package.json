@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "heroku-prebuild": "npm install --dev",
     "postinstall": "webpack -p --config ./webpack.config.js --progress",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js"
