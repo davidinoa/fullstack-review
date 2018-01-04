@@ -8,9 +8,25 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: []
+      repos: [],
+      isLoaded: false
     };
+  }
 
+  componentDidMount() {
+    fetch('http://localhost:1128/repos')
+      .then(res => res.json())
+      .then(result => {
+        this.setState({
+          isLoaded: true,
+          repos: result
+        });
+      }, error => {
+        this.setState({
+          isLoaded: 'Error while loading',
+        });
+        console.log(error);
+      });
   }
 
   search (term) {
